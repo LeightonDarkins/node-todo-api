@@ -55,3 +55,10 @@ describe('POST /todos', () => {
       });
   });
 });
+
+describe('GET /todos', () => {
+  it('should get a list of todo from the database', () => {
+    request(app)
+      .get('/todos/')
+  });
+});
