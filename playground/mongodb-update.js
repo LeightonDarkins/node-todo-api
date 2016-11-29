@@ -1,43 +1,37 @@
-const { MongoClient, ObjectId } = require('mongodb');
+// const MongoClient = require('mongodb').MongoClient;
+const {MongoClient, ObjectID} = require('mongodb');
 
-const HELPERS = require('../helpers/helpers.js');
-
-MongoClient.connect('mongodb://localhost:27017/TodoApp', (error, db) => {
-  if (error) {
-    return console.log('Unable to connect to MongoDB!');
+MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
+  if (err) {
+    return console.log('Unable to connect to MongoDB server');
   }
+  console.log('Connected to MongoDB server');
 
-  console.log('Connected to MongoDB!');
-  console.log('=====================');
+  // db.collection('Todos').findOneAndUpdate({
+  //   _id: new ObjectID('57bc4b15b3b6a3801d8c47a2')
+  // }, {
+  //   $set: {
+  //     completed: true
+  //   }
+  // }, {
+  //   returnOriginal: false
+  // }).then((result) => {
+  //   console.log(result);
+  // });
 
-  var todosCollection = db.collection('Todos');
-  var usersCollection = db.collection('Users');
-
-  var filter = {
-    _id: new ObjectId('5811d0df2e7bf130198d4bfd')
-  };
-
-  var update = {
+  db.collection('Users').findOneAndUpdate({
+    _id: new ObjectID('57abbcf4fd13a094e481cf2c')
+  }, {
     $set: {
-      name: 'Leighton',
+      name: 'Andrew'
     },
     $inc: {
       age: 1
     }
-  };
-
-  var options = {
+  }, {
     returnOriginal: false
-  }
-
-  // todosCollection.findOneAndUpdate(filter, update, options)
-  // .then((result) => {
-  //   HELPERS.prettyPrint(result);
-  // });
-
-  usersCollection.findOneAndUpdate(filter, update, options)
-  .then((result) => {
-    HELPERS.prettyPrint(result);
+  }).then((result) => {
+    console.log(result);
   });
 
   // db.close();

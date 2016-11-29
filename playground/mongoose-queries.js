@@ -1,51 +1,40 @@
-const { ObjectId } = require('mongodb');
+const {ObjectID} = require('mongodb');
 
-const { mongoose } = require('./../server/db/mongoose');
-const { Todo } = require('./../server/models/Todo');
-const { User } = require('./../server/models/User');
+const {mongoose} = require('./../server/db/mongoose');
+const {Todo} = require('./../server/models/todo');
+const {User} = require('./../server/models/user');
 
-// var id = '5811f29177ba303809a52fa2'; // Todo Id
-var id = '581718422043cca3914b2d52';    // User Id
+// var id = '57bf38394b39c93d2a557e9811';
+//
+// if (!ObjectID.isValid(id)) {
+//   console.log('ID not valid');
+// }
 
-if (!ObjectId.isValid(id)) {
-  console.log('Id not valid');
-} else {
-  User.findById(id).then((user) => {
-    if (!user) {
-      return console.log('User Id not found!');
-    }
+// Todo.find({
+//   _id: id
+// }).then((todos) => {
+//   console.log('Todos', todos);
+// });
+//
+// Todo.findOne({
+//   _id: id
+// }).then((todo) => {
+//   console.log('Todo', todo);
+// });
 
-    console.log('User: ', user);
-  });
+// Todo.findById(id).then((todo) => {
+//   if (!todo) {
+//     return console.log('Id not found');
+//   }
+//   console.log('Todo By Id', todo);
+// }).catch((e) => console.log(e));
 
-  // Todo.find({
-  //   _id: id
-  // }).then((todos) => {
-  //   if (todos.length === 0) {
-  //     return console.log('Id not found');
-  //   }
-  //
-  //   console.log(todos);
-  // });
-  //
-  // Todo.findOne({
-  //   _id: id
-  // }).then((todo) => {
-  //   if (!todo) {
-  //     return console.log('Id not found');
-  //   }
-  //
-  //   console.log(todo);
-  // });
+User.findById('57bdb0fcdedf88540bfa2d66').then((user) => {
+  if (!user) {
+    return console.log('Unable to find user');
+  }
 
-  // Todo.findById(id)
-  // .then((todo) => {
-  //   if (!todo) {
-  //     return console.log('Id not found');
-  //   }
-  //
-  //   console.log(todo);
-  // }).catch((err) => {
-  //   console.log(err);
-  // })
-}
+  console.log(JSON.stringify(user, undefined, 2));
+}, (e) => {
+  console.log(e);
+});

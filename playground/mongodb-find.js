@@ -1,51 +1,30 @@
-const { MongoClient, ObjectId } = require('mongodb');
+// const MongoClient = require('mongodb').MongoClient;
+const {MongoClient, ObjectID} = require('mongodb');
 
-const HELPERS = require('../helpers/helpers.js');
-
-MongoClient.connect('mongodb://localhost:27017/TodoApp', (error, db) => {
-  if (error) {
-    return console.log('Unable to connect to MongoDB!');
+MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
+  if (err) {
+    return console.log('Unable to connect to MongoDB server');
   }
+  console.log('Connected to MongoDB server');
 
-  console.log('Connected to MongoDB!');
-  console.log('=====================');
+  // db.collection('Todos').find({
+  //   _id: new ObjectID('57bb36afb3b6a3801d8c479d')
+  // }).toArray().then((docs) => {
+  //   console.log('Todos');
+  //   console.log(JSON.stringify(docs, undefined, 2));
+  // }, (err) => {
+  //   console.log('Unable to fetch todos', err);
+  // });
 
-  var todosCollection = db.collection('Todos');
-  var usersCollection = db.collection('Users');
+  // db.collection('Todos').find().count().then((count) => {
+  //   console.log(`Todos count: ${count}`);
+  // }, (err) => {
+  //   console.log('Unable to fetch todos', err);
+  // });
 
-  usersCollection.find(
-    {
-      name: 'Jim'
-    })
-    .toArray()
-    .then((docs) => {
-      console.log('Users');
-      console.log('=====================');
-      HELPERS.prettyPrint(docs);
-    }, (err) => {
-      console.log('Unable to fetch Users');
-    });
-
-  todosCollection.find(
-    {
-      _id: new ObjectId('5811cfd09d1f5f2ff06403e5')
-    })
-    .toArray()
-    .then((docs) => {
-      console.log('Todos');
-      console.log('=====================');
-      HELPERS.prettyPrint(docs);
-    }, (err) => {
-      return console.log('Unable to fetch ToDos');
-    });
-
-  todosCollection.find()
-    .count()
-    .then((count) => {
-      console.log(`Todos count: ${count}`);
-    }, (err) => {
-      return console.log('Unable to fetch ToDos');
-    });
+  db.collection('Users').find({name: 'Andrew'}).toArray().then((docs) => {
+    console.log(JSON.stringify(docs, undefined, 2));
+  });
 
   // db.close();
 });
